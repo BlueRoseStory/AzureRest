@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Added from .funcignore
+*.js.map
+*.ts
+.git*
+.vscode
+local.settings.json
+test
+tsconfig.json
