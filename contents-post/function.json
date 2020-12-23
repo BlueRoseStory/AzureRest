@@ -16,7 +16,7 @@
       "name": "res"
     },
     {
-      "name": "contentItem",
+      "name": "item",
       "direction": "out",
       "type": "cosmosDB",
       "databaseName": "sysdoc",

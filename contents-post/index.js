@@ -9,15 +9,15 @@ module.exports = async function (context, req) {
 
     if (req.body) {
         if (req.headers.sysdoc_ownerid) {
-            let contentItem = req.body;
+            let item = req.body;
 
-            contentItem.ownerId = req.headers.sysdoc_ownerid;
-            contentItem.id = uuidv4();
+            item.ownerId = req.headers.sysdoc_ownerid;
+            item.id = uuidv4();
 
-            res.body = JSON.stringify(contentItem);
+            res.body = JSON.stringify(item);
             res.status = 200;
 
-            context.bindings.contentItem = res.body;
+            context.bindings.item = res.body;
 
         } else {
             res.body = 'sysdoc_ownerid header not found';
