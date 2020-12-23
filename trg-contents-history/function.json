@@ -1,0 +1,21 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "leases",
+      "connectionStringSetting": "cz-2012sql_DOCUMENTDB",
+      "databaseName": "sysdoc",
+      "collectionName": "contents",
+      "createLeaseCollectionIfNotExists": "true"
+    },
+    {
+      "name": "item",
+      "tableName": "zhistorycontents",
+      "connection": "stsysdoc_STORAGE",
+      "direction": "out",
+      "type": "table"
+    }
+  ]
+}
