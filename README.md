@@ -1,2 +1,2 @@
-# AzureRest
-Azure Functions Crud Ops with Cosmos using REST Endpoints
+# azcrud
+Crud operations with Cosmos using Azure Functions

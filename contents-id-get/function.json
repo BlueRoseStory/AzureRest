@@ -1,0 +1,29 @@
+{
+  "bindings": [
+    {
+      "name": "req",
+      "route": "contents/{contentId}",
+      "authLevel": "function",
+      "methods": [
+        "get"
+      ],
+      "direction": "in",
+      "type": "httpTrigger"
+    },
+    {
+      "name": "res",
+      "direction": "out",
+      "type": "http"
+    },
+    {
+      "name": "contentItem",
+      "databaseName": "sysdoc",
+      "collectionName": "contents",
+      "connectionStringSetting": "cz-2012sql_DOCUMENTDB",
+      "id": "{contentId}",
+      "partitionKey": "{headers.sysdoc_ownerid}",
+      "direction": "in",
+      "type": "cosmosDB"
+    }
+  ]
+}
