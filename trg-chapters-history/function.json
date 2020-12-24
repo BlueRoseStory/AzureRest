@@ -7,12 +7,12 @@
       "leaseCollectionName": "leases",
       "connectionStringSetting": "CosmosConnectionString",
       "databaseName": "sysdoc",
-      "collectionName": "contents",
+      "collectionName": "chapters",
       "createLeaseCollectionIfNotExists": "true"
     },
     {
       "name": "item",
-      "tableName": "zhistorycontents",
+      "tableName": "zhistorychapters",
       "connection": "AzureWebJobsStorage",
       "direction": "out",
       "type": "table"
