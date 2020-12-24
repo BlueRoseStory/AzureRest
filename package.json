@@ -1,11 +1,22 @@
 {
-  "name": "azcrud",
+  "name": "azurerest",
   "version": "1.0.0",
-  "description": "",
+  "description": "Crud operations with Cosmos using Azure Functions",
+  "main": "index.js",
   "scripts": {
-    "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlueRoseStory/AzureRest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlueRoseStory/AzureRest/issues"
+  },
+  "homepage": "https://github.com/BlueRoseStory/AzureRest#readme",
+  "dependencies": {
+    "@azure/cosmos": "^3.9.3"
+  }
 }

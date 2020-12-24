@@ -2,12 +2,12 @@
   "bindings": [
     {
       "authLevel": "function",
+      "route": "books",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
+        "get"
       ]
     },
     {

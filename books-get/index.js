@@ -1,13 +1,33 @@
+const shared = require('../shared');
+const cosmos = require('@azure/cosmos');
+const cosmosConnect = process.env.CosmosConnectionString;
+const { CosmosClient } = cosmos;
+
+const client = new CosmosClient(cosmosConnect);
+
+const books =
+    client.database(shared.cosmos_database)
+        .container(shared.cosmos_container_books);
+
+
 module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+    let res = { body: "unknown", status: 400 };
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
+    if (req.headers[shared.ownerKey]) {
+
+        const feedOptions = { partitionKey: req.headers[shared.ownerKey] };
+
+        const { resources: itemArray } = await books.items.readAll(feedOptions).fetchAll();
+
+        if (itemArray) {
+            context.log(`Returned ${itemArray.length} items`);
+            res.body = itemArray;
+            res.status = 201;
+        }
+    } else {
+        res.body = shared.ownerKey + ' header not found';
+    }
+
+    context.res = res;
 }

@@ -19,9 +19,9 @@
       "name": "item",
       "databaseName": "sysdoc",
       "collectionName": "books",
-      "connectionStringSetting": "cz-2012sql_DOCUMENTDB",
+      "connectionStringSetting": "CosmosConnectionString",
       "id": "{itemId}",
-      "partitionKey": "{headers.sysdoc_ownerid}",
+      "partitionKey": "{headers.sysdoc-ownerid}",
       "direction": "in",
       "type": "cosmosDB"
     }
