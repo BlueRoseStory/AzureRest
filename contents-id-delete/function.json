@@ -1,0 +1,29 @@
+{
+  "bindings": [
+    {
+      "name": "req",
+      "route": "contents/{itemId}",
+      "authLevel": "function",
+      "methods": [
+        "delete"
+      ],
+      "direction": "in",
+      "type": "httpTrigger"
+    },
+    {
+      "name": "res",
+      "direction": "out",
+      "type": "http"
+    },
+    {
+      "name": "item",
+      "databaseName": "sysdoc",
+      "collectionName": "contents",
+      "connectionStringSetting": "CosmosConnectionString",
+      "id": "{itemId}",
+      "partitionKey": "{headers.sysdoc-owner-id}",
+      "direction": "in",
+      "type": "cosmosDB"
+    }
+  ]
+}
