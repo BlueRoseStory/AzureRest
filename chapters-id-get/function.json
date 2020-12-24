@@ -2,7 +2,7 @@
   "bindings": [
     {
       "name": "req",
-      "route": "books/{itemId}",
+      "route": "chapters/{itemId}",
       "authLevel": "function",
       "methods": [
         "get"
@@ -18,7 +18,7 @@
     {
       "name": "item",
       "databaseName": "sysdoc",
-      "collectionName": "books",
+      "collectionName": "chapters",
       "connectionStringSetting": "CosmosConnectionString",
       "id": "{itemId}",
       "partitionKey": "{headers.sysdoc-owner-id}",

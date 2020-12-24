@@ -9,7 +9,6 @@ const books =
     client.database(shared.cosmos_database)
         .container(shared.cosmos_container_books);
 
-
 module.exports = async function (context, req) {
 
     let res = { body: "unknown", status: 400 };
@@ -23,7 +22,7 @@ module.exports = async function (context, req) {
         if (itemArray) {
             context.log(`Returned ${itemArray.length} items`);
             res.body = itemArray;
-            res.status = 201;
+            res.status = 200;
         }
     } else {
         res.body = shared.ownerKey + ' header not found';

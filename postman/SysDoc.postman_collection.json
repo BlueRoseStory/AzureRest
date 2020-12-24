@@ -6,164 +6,318 @@
 	},
 	"item": [
 		{
-			"name": "contents-get",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "sysdoc_ownerid",
-						"value": "{{ownerId}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{hostUrl}}/api/contents?code={{hostKey}}",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"contents"
-					],
-					"query": [
-						{
-							"key": "code",
-							"value": "{{hostKey}}"
+			"name": "Books",
+			"item": [
+				{
+					"name": "books-get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/books?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"books"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "contents-id-get",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "sysdoc_ownerid",
-						"value": "{{ownerId}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"contents",
-						"{{contentId}}"
-					],
-					"query": [
-						{
-							"key": "code",
-							"value": "{{hostKey}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "contents-post",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "sysdoc_ownerid",
-						"value": "{{ownerId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"nice\",\r\n    \"tags\": \"one,last\"\r\n}"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{hostUrl}}/api/contents?code={{hostKey}}",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"contents"
-					],
-					"query": [
-						{
-							"key": "code",
-							"value": "{{hostKey}}"
+				{
+					"name": "books-id-get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/books/{{bookId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"{{bookId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "books-id-get",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "sysdoc_ownerid",
-						"type": "text",
-						"value": "{{ownerId}}"
-					}
-				],
-				"url": {
-					"raw": "{{hostUrl}}/api/books/{{bookId}}?code={{hostKey}}",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"books",
-						"{{bookId}}"
-					],
-					"query": [
-						{
-							"key": "code",
-							"value": "{{hostKey}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "books-post",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "sysdoc_ownerid",
-						"value": "{{ownerId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"New Book\",\r\n    \"tags\": \"one,last\"\r\n}"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{hostUrl}}/api/books?code={{hostKey}}",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"books"
-					],
-					"query": [
-						{
-							"key": "code",
-							"value": "{{hostKey}}"
+				{
+					"name": "books-post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"value": "{{owner-id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Morning Add\",\r\n    \"tags\": \"one,last\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/books?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"books"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Chapters",
+			"item": [
+				{
+					"name": "chapters-get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/chapters?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"chapters"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chapters-id-get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"value": "{{owner-id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/chapters/{{chapterId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"{{chapterId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chapters-post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"static container Chapter\",\r\n    \"tags\": \"one,last\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/chapters?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"chapters"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contents",
+			"item": [
+				{
+					"name": "contents-get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"value": "{{owner-id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/contents?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contents-id-get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"value": "{{owner-id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents",
+								"{{contentId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contents-post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"value": "{{owner-id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"nice\",\r\n    \"tags\": \"one,last\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/contents?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
