@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "8a43a62b-251c-4bdc-b421-89fa0669b185",
 		"name": "SysDoc",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -47,6 +48,28 @@
 				},
 				{
 					"name": "books-id-get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id checks\", () => {\r",
+									"  pm.expect(responseJson.id).to.not.be.empty;\r",
+									"  pm.expect(responseJson.id).to.equal(pm.globals.get(\"bookId\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -78,6 +101,17 @@
 				},
 				{
 					"name": "books-post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -89,7 +123,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Morning Add\",\r\n    \"tags\": \"one,last\"\r\n}"
+							"raw": "{\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"description\": \"{{$randomBs}}\",\r\n    \"tags\": \"{{$randomLoremWords}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/books?code={{hostKey}}",
@@ -99,6 +138,72 @@
 							"path": [
 								"api",
 								"books"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "books-id-put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/books/{{bookId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"{{bookId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "books-id-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/books/{{bookId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"{{bookId}}"
 							],
 							"query": [
 								{
@@ -196,7 +301,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"static container Chapter\",\r\n    \"tags\": \"one,last\"\r\n}"
+							"raw": "{\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"description\": \"{{$randomBs}}\",\r\n    \"tags\": \"{{$randomLoremWords}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/chapters?code={{hostKey}}",
@@ -206,6 +311,72 @@
 							"path": [
 								"api",
 								"chapters"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chapters-id-put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/chapters/{{chapterId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"{{chapterId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chapters-id-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/chapters/{{chapterId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"{{chapterId}}"
 							],
 							"query": [
 								{
@@ -296,7 +467,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"nice\",\r\n    \"tags\": \"one,last\"\r\n}"
+							"raw": "{\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"description\": \"{{$randomBs}}\",\r\n    \"tags\": \"{{$randomLoremWords}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/contents?code={{hostKey}}",
@@ -316,8 +487,94 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "contents-id-put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents",
+								"{{contentId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contents-id-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents",
+								"{{contentId}}"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.globals.set(\"from-sysdoc-collection\", \"barney\");"
+				]
+			}
 		}
 	]
 }

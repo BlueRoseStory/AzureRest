@@ -1,7 +1,8 @@
 # azcrud
 Crud operations with Cosmos using Azure Functions
 
-
+## Response Objects
+We are trying to keep things simple by following this (JSend)[https://github.com/omniti-labs/jsend] specification.   It appears to be a subset of the (json Api)[https://jsonapi.org/] specification.  If we decide to add additional properties, we will use what is defined in the **json Api**.
 
 This issue discussed in this article (https://github.com/Azure/azure-webjobs-sdk/issues/1726) about the cosmos input trigger not being able to read headers is why we are not using bindings for the colleciton get (We can't get to our ownerid header)
 
