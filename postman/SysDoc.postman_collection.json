@@ -53,17 +53,31 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"// Examples from Youtube video\r",
+									"// https://github.com/DannyDainton/post-con-2019-workshop\r",
 									"const responseJson = pm.response.json();\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Id checks\", () => {\r",
+									"pm.test(\"Response Id checks\", () => {\r",
 									"  pm.expect(responseJson.id).to.not.be.empty;\r",
 									"  pm.expect(responseJson.id).to.equal(pm.globals.get(\"bookId\"));\r",
 									"});\r",
 									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"\r",
+									"pm.globals.set(\"someDate\", moment().format(\"MM/DD/YYYY\"));\r",
 									""
 								],
 								"type": "text/javascript"
@@ -95,7 +109,8 @@
 									"value": "{{hostKey}}"
 								}
 							]
-						}
+						},
+						"description": "## GET /books/{bookId}"
 					},
 					"response": []
 				},
