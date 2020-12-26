@@ -5,7 +5,7 @@ Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19436892ea256135088f)
 
-(To just view the documentation, [click here](https://documenter.getpostman.com/view/838809/TVsxARk3))
+(To view the documentation, [click here](https://documenter.getpostman.com/view/838809/TVsxARk3))
 
 ## Punch List
 
@@ -14,6 +14,7 @@ Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for 
 - [ ] Video - Write script and record video
 - [ ] README.MD  Add more explanation to this file
 - [ ] Add Documentation (Swagger/Postman/?)
+- [ ] Consider requiring a bearer token in header (The token could contain the ownerId)
 
 ## Response Objects
 We are trying to keep things simple by following this [JSend](https://github.com/omniti-labs/jsend) specification.   It appears to be a subset of the [json Api](https://jsonapi.org/) specification.  If we decide to add additional properties, we will use what is defined in the **json Api**.
@@ -27,3 +28,9 @@ Packages that I was using, but no longer need.
 
 Doc for Cosmos Javascript SDK
 https://docs.microsoft.com/en-us/javascript/api/@azure/cosmos/items?view=azure-node-latest
+
+Link for examples from Youtube [POST/CON 2019 - Testing, Automation and Reporting Workshop](https://github.com/DannyDainton/post-con-2019-workshop) ([videos link](https://youtu.be/mZaayUAC-Hg))
+
+More good examples for [Postman Tests](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#parsing-response-body-data)
+
+
