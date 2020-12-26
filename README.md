@@ -26,11 +26,12 @@ Packages that I was using, but no longer need.
     "json-stringify-safe": "^5.0.1",
     "uuid": "^8.3.2"
 
-Doc for Cosmos Javascript SDK
-https://docs.microsoft.com/en-us/javascript/api/@azure/cosmos/items?view=azure-node-latest
+Doc for [Cosmos Javascript SDK](https://docs.microsoft.com/en-us/javascript/api/@azure/cosmos/items?view=azure-node-latest)
 
 Link for examples from Youtube [POST/CON 2019 - Testing, Automation and Reporting Workshop](https://github.com/DannyDainton/post-con-2019-workshop) ([videos link](https://youtu.be/mZaayUAC-Hg))
 
 More good examples for [Postman Tests](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#parsing-response-body-data)
 
+[JSON Editor Online](https://jsoneditoronline.org/) - Best tool I have found for quickly formatting JSON.
 
+This doc [Azure Cosmos DB input binding for Azure Functions 2.x and higher](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-input?tabs=csharp) was helpful to get the bindings working.  Here is another link that [shows all the bindings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?tabs=csharp)
