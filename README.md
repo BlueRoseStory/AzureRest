@@ -5,6 +5,8 @@ Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19436892ea256135088f)
 
+(To just view the documentation, [click here](https://documenter.getpostman.com/view/838809/TVsxARk3))
+
 ## Punch List
 
 - [ ] Convert Response objects to follow JSend spec
