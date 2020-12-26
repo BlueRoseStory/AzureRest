@@ -1,6 +1,10 @@
 # AzureRest
 Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for tracking all changes.
 
+- [ ] Convert Response objects to follow JSend spec
+- [ ] Add more tests to get an End-to-End test
+
+
 ## Response Objects
 We are trying to keep things simple by following this [JSend](https://github.com/omniti-labs/jsend) specification.   It appears to be a subset of the [json Api](https://jsonapi.org/) specification.  If we decide to add additional properties, we will use what is defined in the **json Api**.
 
