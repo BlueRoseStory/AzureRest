@@ -32,6 +32,8 @@ Link for examples from Youtube [POST/CON 2019 - Testing, Automation and Reportin
 
 More good examples for [Postman Tests](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#parsing-response-body-data)
 
+[Postman - Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/)
+
 [JSON Editor Online](https://jsoneditoronline.org/) - Best tool I have found for quickly formatting JSON.
 
 This doc [Azure Cosmos DB input binding for Azure Functions 2.x and higher](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-input?tabs=csharp) was helpful to get the bindings working.  Here is another link that [shows all the bindings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?tabs=csharp)
