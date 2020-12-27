@@ -9,11 +9,11 @@ Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for 
 
 ## Punch List
 
-- [ ] Convert Response objects to follow JSend spec
+- [x] Convert Response objects to follow JSend spec
 - [ ] Add more tests to get an End-to-End test
 - [ ] Video - Write script and record video
 - [ ] README.MD  Add more explanation to this file
-- [ ] Add Documentation (Swagger/Postman/?)
+- [x] Add Documentation (Swagger/Postman/?)
 - [ ] Consider requiring a bearer token in header (The token could contain the ownerId)
 
 ## Response Objects

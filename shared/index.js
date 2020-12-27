@@ -12,14 +12,7 @@ const dbClient = new CosmosClient(cosmosConnect);
 
 const postHandler = async function (context, req, container) {
 
-    let res =
-    {
-        status: 400,
-        body: {
-            status: "fail",
-            data: { "message": "unknown" }
-        }
-    };
+    let res = defaultResponse();
 
     if (req.body) {
         if (req.headers[ownerKey]) {
@@ -48,14 +41,7 @@ const postHandler = async function (context, req, container) {
 
 const putHandler = async function (context, req, item, container) {
 
-    let res =
-    {
-        status: 400,
-        body: {
-            status: "fail",
-            data: { "message": "unknown" }
-        }
-    };
+    let res = defaultResponse();
 
     if (item) {
         let newItem = {};
@@ -81,14 +67,7 @@ const putHandler = async function (context, req, item, container) {
 
 const deleteHandler = async function (context, req, item, container) {
 
-    let res =
-    {
-        status: 400,
-        body: {
-            status: "fail",
-            data: { "message": "unknown" }
-        }
-    };
+    let res = defaultResponse();
 
     if (item) {
         await container
@@ -112,14 +91,7 @@ const deleteHandler = async function (context, req, item, container) {
 
 const getItemHandler = async function (context, req, item) {
 
-    let res =
-    {
-        status: 400,
-        body: {
-            status: "fail",
-            data: { "message": "unknown" }
-        }
-    };
+    let res = defaultResponse();
 
     if (item) {
         res.status = 200;
@@ -137,14 +109,7 @@ const getItemHandler = async function (context, req, item) {
 
 const getAllHandler = async function (context, req, container) {
 
-    let res =
-    {
-        status: 400,
-        body: {
-            status: "fail",
-            data: { "message": "unknown" }
-        }
-    };
+    let res = defaultResponse();
 
     if (req.headers[ownerKey]) {
 
@@ -153,13 +118,11 @@ const getAllHandler = async function (context, req, container) {
         const { resources: itemArray } =
             await container.items.readAll(feedOptions).fetchAll();
 
-        if (itemArray && itemArray.length > 0) {
+        if (itemArray) {
             res.status = 200;
             res.body.status = "success";
             res.body.count = itemArray.length;
             res.body.data = itemArray;
-        } else {
-            res.status = 204;
         }
     } else {
         res.body.data = {
@@ -169,6 +132,18 @@ const getAllHandler = async function (context, req, container) {
 
     return res;
 };
+
+const defaultResponse = function() {
+    let res =
+    {
+        status: 400,
+        body: {
+            status: "fail",
+            data: { "message": "unknown" }
+        }
+    };
+    return res;    
+}
 
 module.exports = {
     ownerKey: 'sysdoc-owner-id',
