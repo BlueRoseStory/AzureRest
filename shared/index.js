@@ -12,7 +12,14 @@ const dbClient = new CosmosClient(cosmosConnect);
 
 const postHandler = async function (context, req, container) {
 
-    let res = { body: "unknown", status: 400 };
+    let res =
+    {
+        status: 400,
+        body: {
+            status: "fail",
+            data: { "message": "unknown" }
+        }
+    };
 
     if (req.body) {
         if (req.headers[ownerKey]) {
@@ -22,46 +29,25 @@ const postHandler = async function (context, req, container) {
 
             const response = await container.items.create(item);
 
-            res.body = response.resource;
             res.status = 201;
+            res.body.status = "success";
+            res.body.data = response.resource;
         } else {
-            res.body = ownerKey + ' header not found';
+            res.body.data = {
+                "message": ownerKey + ' header not found'
+            };
         }
     } else {
-        res.body = 'request body not found';
+        res.body.data = {
+            "message": 'request body not found'
+        };
     }
 
     return res;
 };
 
-const putHandler = async function(context, req, item, container) {
+const putHandler = async function (context, req, item, container) {
 
-    let res = { body: 'unknown', status: 404 }
-
-    if (req.headers[ownerKey]) {
-        if (item) {
-
-            let newItem = {};
-            Object.assign(newItem, item, req.body);
-
-            const { resource: updatedItem } = await container
-                .item(item.id, req.headers[ownerKey])
-                .replace(newItem);
-
-            res.body = updatedItem;
-            res.status = 200;
-        } else {
-            res.body = `Item: ${context.bindingData.itemId} not found for owner: ${req.headers[ownerKey]}`;
-        }
-    } else {
-        res.body = ownerKey + ' header not found';
-    }
-
-    return res;
-}
-
-const getHandler = async function(context, req, item) {
- 
     let res =
     {
         status: 400,
@@ -72,20 +58,28 @@ const getHandler = async function(context, req, item) {
     };
 
     if (item) {
+        let newItem = {};
+        Object.assign(newItem, item, req.body);
+
+        const { resource: updatedItem } = await container
+            .item(item.id, req.headers[ownerKey])
+            .replace(newItem);
+
         res.status = 200;
         res.body.status = "success";
-        res.body.data = item;
+        res.body.data = updatedItem;
+
+
     } else {
-        res.status = 404;
         res.body.data = {
             "message": `Item: ${context.bindingData.itemId} not found for owner: ${req.headers[ownerKey]}`
         };
     }
-    
+
     return res;
 }
 
-const deleteHandler = async function(context, req, item, container) {
+const deleteHandler = async function (context, req, item, container) {
 
     let res =
     {
@@ -116,6 +110,66 @@ const deleteHandler = async function(context, req, item, container) {
     return res;
 }
 
+const getItemHandler = async function (context, req, item) {
+
+    let res =
+    {
+        status: 400,
+        body: {
+            status: "fail",
+            data: { "message": "unknown" }
+        }
+    };
+
+    if (item) {
+        res.status = 200;
+        res.body.status = "success";
+        res.body.data = item;
+    } else {
+        res.status = 404;
+        res.body.data = {
+            "message": `Item: ${context.bindingData.itemId} not found for owner: ${req.headers[ownerKey]}`
+        };
+    }
+
+    return res;
+}
+
+const getAllHandler = async function (context, req, container) {
+
+    let res =
+    {
+        status: 400,
+        body: {
+            status: "fail",
+            data: { "message": "unknown" }
+        }
+    };
+
+    if (req.headers[ownerKey]) {
+
+        const feedOptions = { partitionKey: req.headers[ownerKey] };
+
+        const { resources: itemArray } =
+            await container.items.readAll(feedOptions).fetchAll();
+
+        if (itemArray && itemArray.length > 0) {
+            res.status = 200;
+            res.body.status = "success";
+            res.body.count = itemArray.length;
+            res.body.data = itemArray;
+        } else {
+            res.status = 204;
+        }
+    } else {
+        res.body.data = {
+            "message": ownerKey + ' header not found'
+        };
+    }
+
+    return res;
+};
+
 module.exports = {
     ownerKey: 'sysdoc-owner-id',
     cosmos_database: cosmos_database,
@@ -125,6 +179,7 @@ module.exports = {
     dbClient: dbClient,
     postHandler: postHandler,
     putHandler: putHandler,
-    getHandler: getHandler,
-    deleteHandler: deleteHandler
+    deleteHandler: deleteHandler,
+    getItemHandler: getItemHandler,
+    getAllHandler: getAllHandler
 }
