@@ -131,7 +131,21 @@ const getAllHandler = async function (context, req, container) {
     return res;
 };
 
-const defaultResponse = function() {
+const getHistoryHandler = async function (context, req, history) {
+
+    let res = defaultResponse();
+
+    if (history) {
+        res.status = 200;
+        res.body.status = "success";
+        res.body.count = history.length;
+        res.body.data = history;
+    }
+
+    return res;
+};
+
+const defaultResponse = function () {
     let res =
     {
         status: 400,
@@ -140,7 +154,7 @@ const defaultResponse = function() {
             data: { "message": "unknown" }
         }
     };
-    return res;    
+    return res;
 }
 
 module.exports = {
@@ -154,5 +168,6 @@ module.exports = {
     putHandler: putHandler,
     deleteHandler: deleteHandler,
     getItemHandler: getItemHandler,
-    getAllHandler: getAllHandler
+    getAllHandler: getAllHandler,
+    getHistoryHandler: getHistoryHandler
 }

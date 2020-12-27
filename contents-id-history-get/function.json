@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "route": "contents/{itemId}/history",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "name": "history",
+      "type": "table",
+      "tableName": "zhistorycontents",
+      "partitionKey": "{itemId}",
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
