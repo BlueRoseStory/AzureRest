@@ -14,15 +14,14 @@
 						"exec": [
 							"const jsonData = pm.response.json();\r",
 							"\r",
-							"pm.environment.set(\"book-id-test\", jsonData.id);\r",
-							"\r",
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response Id checks\", () => {\r",
-							"  pm.expect(jsonData.id).to.not.be.empty;\r",
-							"  // pm.expect(responseJson.id).to.equal(pm.globals.get(\"bookId\"));\r",
+							"  pm.expect(jsonData.data.id).to.not.be.empty;\r",
+							"  pm.environment.set(\"book-id-test\", jsonData.data.id);\r",
+							"  // pm.expect(responseJson.id).to.equal(pm.globals.get(\"book-id-test\"));\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -67,6 +66,80 @@
 			"response": []
 		},
 		{
+			"name": "Wait for first history record",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const maxNumberOfTries = 5;\r",
+							"const sleepBetweenTries = 2000;\r",
+							"const expectedHistoryCount = 1;\r",
+							"const payload = pm.response.json();\r",
+							"\r",
+							"if (!pm.environment.get(\"collection_tries\")) {\r",
+							"    pm.environment.set(\"collection_tries\", 1);\r",
+							"}\r",
+							"\r",
+							"if ((!payload) || (payload.count < expectedHistoryCount)\r",
+							"    && (pm.environment.get(\"collection_tries\") < maxNumberOfTries)) {\r",
+							"    var tries = parseInt(pm.environment.get(\"collection_tries\"), 10);\r",
+							"    console.log(`Retrying request ${tries} of ${maxNumberOfTries}`);\r",
+							"    pm.environment.set(\"collection_tries\", tries + 1);\r",
+							"    setTimeout(function () { }, sleepBetweenTries);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"collection_tries\");\r",
+							"\r",
+							"    pm.test(\"History Count >= \" + expectedHistoryCount, function () {\r",
+							"        payload.data.count >= expectedHistoryCount;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sysdoc-owner-id",
+						"type": "text",
+						"value": "{{owner-id}}"
+					}
+				],
+				"url": {
+					"raw": "{{hostUrl}}/api/books/{{book-id-test}}/history?code={{hostKey}}",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"{{book-id-test}}",
+						"history"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{hostKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Book by Id",
 			"event": [
 				{
@@ -75,15 +148,15 @@
 						"exec": [
 							"// Examples from Youtube video\r",
 							"// https://github.com/DannyDainton/post-con-2019-workshop\r",
-							"const jsonData = pm.response.json();\r",
+							"const payload = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response Id checks\", () => {\r",
-							"  pm.expect(jsonData.id).to.not.be.empty;\r",
-							"  // pm.expect(responseJson.id).to.equal(pm.globals.get(\"bookId\"));\r",
+							"  pm.expect(payload.data.id).to.not.be.empty;\r",
+							"  // pm.expect(responseJson.id).to.equal(pm.globals.get(\"book-id-test\"));\r",
 							"});\r",
 							"\r",
 							""
@@ -131,6 +204,256 @@
 					]
 				},
 				"description": "## GET /books/{bookId}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Books, look for new one",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Examples from Youtube video\r",
+							"// https://github.com/DannyDainton/post-con-2019-workshop\r",
+							"const payload = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Book found in list\", () => {\r",
+							"  // console.log('payload', payload);\r",
+							"  const found = payload.data.find(b => b.id === pm.environment.get(\"book-id-test\"));\r",
+							"  pm.expect(found);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sysdoc-owner-id",
+						"type": "text",
+						"value": "{{owner-id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/books?code={{hostKey}}",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{hostKey}}"
+						}
+					]
+				},
+				"description": "## Return all books for an Owner"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Examples from Youtube video\r",
+							"// https://github.com/DannyDainton/post-con-2019-workshop\r",
+							"const payload = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Book title updated\", () => {\r",
+							"  // console.log('payload', payload);\r",
+							"  pm.expect(payload.data.title === 'Updated Title');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "sysdoc-owner-id",
+						"type": "text",
+						"value": "{{owner-id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Updated Title\"\r\n}"
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/books/{{book-id-test}}?code={{hostKey}}",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"{{book-id-test}}"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{hostKey}}"
+						}
+					]
+				},
+				"description": "## Update an existing book by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Wait for second history record",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const maxNumberOfTries = 5;\r",
+							"const sleepBetweenTries = 2000;\r",
+							"const expectedHistoryCount = 2;\r",
+							"const payload = pm.response.json();\r",
+							"\r",
+							"if (!pm.environment.get(\"collection_tries\")) {\r",
+							"    pm.environment.set(\"collection_tries\", 1);\r",
+							"}\r",
+							"\r",
+							"if ((!payload) || (payload.count < expectedHistoryCount)\r",
+							"    && (pm.environment.get(\"collection_tries\") < maxNumberOfTries)) {\r",
+							"    var tries = parseInt(pm.environment.get(\"collection_tries\"), 10);\r",
+							"    console.log(`Retrying request ${tries} of ${maxNumberOfTries}`);\r",
+							"    pm.environment.set(\"collection_tries\", tries + 1);\r",
+							"    setTimeout(function () { }, sleepBetweenTries);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"collection_tries\");\r",
+							"\r",
+							"    pm.test(\"History Count >= \" + expectedHistoryCount, function () {\r",
+							"        payload.data.count >= expectedHistoryCount;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sysdoc-owner-id",
+						"type": "text",
+						"value": "{{owner-id}}"
+					}
+				],
+				"url": {
+					"raw": "{{hostUrl}}/api/books/{{book-id-test}}/history?code={{hostKey}}",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"{{book-id-test}}",
+						"history"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{hostKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "sysdoc-owner-id",
+						"type": "text",
+						"value": "{{owner-id}}"
+					}
+				],
+				"url": {
+					"raw": "{{hostUrl}}/api/books/{{book-id-test}}?code={{hostKey}}",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"{{book-id-test}}"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{hostKey}}"
+						}
+					]
+				},
+				"description": "## Delete a book by Id"
 			},
 			"response": []
 		}

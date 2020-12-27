@@ -354,7 +354,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+							"raw": "{\r\n    \"title\": \"Chapter {{$randomBs}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/chapters/{{chapterId}}?code={{hostKey}}",
@@ -474,6 +479,38 @@
 					"response": []
 				},
 				{
+					"name": "contents-id-history-get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sysdoc-owner-id",
+								"type": "text",
+								"value": "{{owner-id}}"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/api/contents/{{contentId}}/history?code={{hostKey}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"contents",
+								"{{contentId}}",
+								"history"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{hostKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "contents-post",
 					"request": {
 						"method": "POST",
@@ -520,7 +557,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Updated Title tag\"\r\n}"
+							"raw": "{\r\n    \"title\": \"Updated Dude\"\r\n}"
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",
