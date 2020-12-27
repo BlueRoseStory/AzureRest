@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "8a43a62b-251c-4bdc-b421-89fa0669b185",
 		"name": "SysDoc",
-		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"description": "# Azure Rest\nAzure functions CRUD operations with Cosmos DB.  Table Storage is also used for tracking all changes.\n\n[Github Reposistory](https://github.com/BlueRoseStory/AzureRest)\n\n## Variables\n#### {{hostUrl}} - Url from Azure to the functions.  \nShould look something like: ```https://YOUR-FUNCTION-APP.azurewebsites.net```\n\n#### {{hostKey}} - Code from Azure to allow the request.\nYou can find this value by clicking on the Overview tab for one of the functions.   Along the top are some links, and one is **Get Function Url**.   This brings up a dialog where  you can select *default (host key)* and copy the url.  Then, just copy the *code=* part of the url.\n\n#### {{owner-id}} - Owner Id assigned to all resources.  \nThis value is passed in the **headers** and is required for all API calls.\n",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -10,7 +10,7 @@
 			"name": "Books",
 			"item": [
 				{
-					"name": "books-get",
+					"name": "api/books",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -42,12 +42,13 @@
 									"value": "{{hostKey}}"
 								}
 							]
-						}
+						},
+						"description": "## Return all books for an Owner"
 					},
 					"response": []
 				},
 				{
-					"name": "books-id-get",
+					"name": "api/books/{bookId}",
 					"event": [
 						{
 							"listen": "test",
@@ -110,12 +111,12 @@
 								}
 							]
 						},
-						"description": "## GET /books/{bookId}"
+						"description": "## Return a single book by Id."
 					},
 					"response": []
 				},
 				{
-					"name": "books-post",
+					"name": "api/books",
 					"event": [
 						{
 							"listen": "test",
@@ -160,12 +161,13 @@
 									"value": "{{hostKey}}"
 								}
 							]
-						}
+						},
+						"description": "## Add a new book"
 					},
 					"response": []
 				},
 				{
-					"name": "books-id-put",
+					"name": "api/books/{bookId}",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -177,7 +179,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+							"raw": "{\r\n    \"title\": \"Updated Title\"\r\n}"
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/books/{{bookId}}?code={{hostKey}}",
@@ -195,12 +197,13 @@
 									"value": "{{hostKey}}"
 								}
 							]
-						}
+						},
+						"description": "## Update an existing book by id"
 					},
 					"response": []
 				},
 				{
-					"name": "books-id-delete",
+					"name": "api/books/{bookId}",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -226,7 +229,8 @@
 									"value": "{{hostKey}}"
 								}
 							]
-						}
+						},
+						"description": "## Delete a book by Id"
 					},
 					"response": []
 				}
@@ -516,7 +520,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Updated Title without tag\"\r\n}"
+							"raw": "{\r\n    \"title\": \"Updated Title tag\"\r\n}"
 						},
 						"url": {
 							"raw": "{{hostUrl}}/api/contents/{{contentId}}?code={{hostKey}}",

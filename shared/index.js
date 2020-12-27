@@ -54,8 +54,6 @@ const putHandler = async function (context, req, item, container) {
         res.status = 200;
         res.body.status = "success";
         res.body.data = updatedItem;
-
-
     } else {
         res.body.data = {
             "message": `Item: ${context.bindingData.itemId} not found for owner: ${req.headers[ownerKey]}`
