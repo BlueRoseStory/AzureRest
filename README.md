@@ -10,10 +10,11 @@ Azure functions CRUD operations with Cosmos DB.  Table Storage is also used for 
 ## Punch List
 
 - [x] Convert Response objects to follow JSend spec
+- [ ] Pagination for getAll methods.
 - [ ] Add more tests to get an End-to-End test
 - [ ] Video - Write script and record video
 - [ ] README.MD  Add more explanation to this file
-- [x] Add Documentation (Swagger/Postman/?)
+- [ ] Update Postman API Documentation
 - [ ] Consider requiring a bearer token in header (The token could contain the ownerId)
 
 ## Response Objects
@@ -37,3 +38,5 @@ More good examples for [Postman Tests](https://learning.postman.com/docs/writing
 [JSON Editor Online](https://jsoneditoronline.org/) - Best tool I have found for quickly formatting JSON.
 
 This doc [Azure Cosmos DB input binding for Azure Functions 2.x and higher](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-input?tabs=csharp) was helpful to get the bindings working.  Here is another link that [shows all the bindings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?tabs=csharp)
+
+This [article](https://www.eliostruyf.com/retrieving-the-cosmos-db-query-continuation-token-with-node-js/) may be answer for how to handle pagination in Cosmos (using Javascript)
